@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+
+<hibernate-mapping>
+    <class name="bean.AssignmentBean" table="Assignment">
+        <id name="assignmentid" column="assignmentid" type="string">
+            <generator class="assigned"/>
+        </id>
+        <property name="questionarename" column="questionarename" type = "string" />
+        <property name="questionare" column="questionare" type ="blob"/>
+        <property name="totalmarks" column="totalmarks" type = "float" />
+        <property name="lastdateofsubmission" column="lastdateofsubmission" type = "date"/>
+    </class>
+</hibernate-mapping>

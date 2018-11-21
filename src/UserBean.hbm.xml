@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+
+ <hibernate-mapping>  
+  <class name="bean.UserBean" table="user1">  
+  <id name="userid">  
+  <column name="userid" />
+  <generator class="increment"></generator>  
+  </id>  
+  
+  <property name="password" type = "string">
+  	<column name="password" />
+  </property>  
+  
+  <property name="name" type = "string">
+  	<column name="name" />
+  </property> 
+  
+  <property name="designation" type = "string">
+  	<column name="designation" />
+  </property>  
+   
+  
+  <joined-subclass name="bean.AdminBean" table="admin">  
+  <key column="a_userid"></key>  
+  <property name="salary" type="float">
+  	<column name="salary" />
+  </property>  
+ 
+  </joined-subclass>  
+   
+  <joined-subclass name="bean.TeachersBean" table="teacher">  
+  <key column="t_userid"></key>  
+  <many-to-one name="subject" column="subject" unique="true" 
+       class="bean.SubjectBean" lazy="false" fetch="select"/>
+  </joined-subclass>  
+  
+  <joined-subclass name="bean.StudentBean" table="student">  
+  <key column="s_userid"></key>  
+   <property name="studentclass" type="string">
+  	<column name="class" />
+  </property>  
+  <set name="subjects" cascade="save-update" table="student_subject"  lazy="false" fetch="select">
+         <key column="s_userid"/>
+         <many-to-many column="subjectname" class="bean.SubjectBean"/>
+  </set>
+  <set name="studentassignsolu" table="StudentAssignmentSolution"  lazy="false" fetch="select" cascade="all">
+            <key column="trioid" foreign-key="TRIO_FK1" />
+            <composite-element class="bean.StudentAssignmentSolutionBean">
+                <parent name="student"/>
+                <many-to-one name="assignment" class="bean.AssignmentBean"  column ="assignmentid"/>
+                <many-to-one name="solution" class="bean.SolutionBean" column="solutionid"  />
+                <property name="marksobtained" type="float">
+                    <column name="marksobtained"/>
+                </property>
+            </composite-element>
+    </set> 
+  </joined-subclass>  
+  
+  </class>  
+  </hibernate-mapping>  

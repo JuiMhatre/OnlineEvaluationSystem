@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+
+<hibernate-mapping>
+    <class name="bean.SubjectBean" table="Subject">
+        <id name="subjectname" column="subjectname" type="string">
+            <generator class="assigned"/>
+        </id>
+        <property name="notesname" column="notesname" type = "string" />
+        <property name="notespdf" column="notespdf" type ="blob" />
+        <set name="assignments" cascade="all" lazy="false" fetch="select">
+         <key column="nameofsubject"/>
+         <one-to-many class="bean.AssignmentBean"/>
+      </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts  
+Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">  
+
+<struts>
+<constant name="struts.devMode" value="true" />
+
+<package name="default" extends="struts-default">
+	
+   <action name="MainPageAction" class = "action.MainPageAction" method= "determineDesignation">
+   <result name ="ADMIN">/JSP/Student/Login.jsp</result>
+   <result name ="TEACHER">/JSP/Student/Login.jsp</result>
+   <result name ="STUDENT">/JSP/Student/Login.jsp</result>
+   </action>
+   
+   <action name="gotoRegister" class = "action.LoginPageAction" method= "goRegistration">
+   <result name ="success">/JSP/Student/Register_user.jsp</result>
+   </action>
+   
+   <action name="login" class = "action.UserLoginAction" method= "loginValidation">
+   <result name ="ADMIN">/JSP/Student/AdminHomePage.jsp</result>
+   <result name ="TEACHER">/JSP/Student/TeacherHomePage.jsp</result>
+   <result name ="STUDENT">/JSP/Student/StudentHomePage.jsp</result>
+   <result name ="failure">/JSP/Student/Login.jsp</result>
+   <result name ="NOASSIGNMENT">/JSP/Student/Login.jsp</result>
+   </action>
+   
+   <action name="register" class = "action.LoginPageAction" method= "register">
+   <result name ="success">/JSP/Student/MainPage.jsp</result>
+   <result name ="error">/JSP/Student/Register_user.jsp</result>
+   </action>
+   <action name="addTeacherSubject" class = "action.TeacherSubjectAddAction" method= "mapTeacherSubject">
+   <result name ="success">/JSP/Student/AdminHomePage.jsp</result>
+   </action>
+   <action name="addStudentSubjectClass" class = "action.StudentSubjectClass" method= "mapStudentSubjectClass">
+   <result name ="success">/JSP/Student/AdminHomePage.jsp</result>
+   <result name ="failure">/JSP/Student/AdminHomePage.jsp</result>
+   </action>
+   <action name="addNewSubject" class = "action.UserLoginAction" method= "createNewSubject">
+   <result name ="success">/JSP/Student/AdminHomePage.jsp</result>
+   <result name ="error">/JSP/Student/MainPage.jsp</result>
+   <result name ="NOSUBJECT">/JSP/Student/AdminHomePage.jsp</result>
+   <result name ="SOMEERROR">/JSP/Student/AdminHomePage.jsp</result>
+   </action>
+   <action name="logout" class = "action.LoginPageAction" method= "Logout">
+   <result name ="success">/JSP/Student/MainPage.jsp</result>
+   </action>
+   
+   <action name="checkassignment" class = "action.AssignmentUploadAction" method= "checkAssignment">
+   <result name="success" type="stream">
+  		<param name="contentType">application/pdf</param>
+	 	<param name="inputName">fileInputStream</param>
+	  	<param name="contentDisposition">attachment;filename=${downloadlink}</param>
+	  	<param name="bufferSize">1024</param>
+        </result>
+        <result name ="error">JSP/Student/TeacherHomePage.jsp</result>
+   </action>
+   <action name="giveStudents" class = "action.AssignmentUploadAction" method= "giveStudentsList">
+   <result name ="success">/JSP/Student/TeacherHomePage.jsp</result>
+   </action>
+   <action name="markssubmit" class = "action.AssignmentUploadAction" method= "submitMarks">
+   <result name ="success">/JSP/Student/TeacherHomePage.jsp</result>
+   <result name ="error">/JSP/Student/TeacherHomePage.jsp</result>
+   </action>
+   
+   
+    	<action name="assignmentUpload" class = "action.AssignmentUploadAction" method ="uploadAssignmentTemp"> 
+		
+			<interceptor-ref name="fileUploadStack"> 
+				<param name="fileUpload.allowedTypes">application/pdf</param> 
+			</interceptor-ref> 
+			<result name="success">/JSP/Student/TeacherHomePage.jsp</result> 
+		</action>
+   
+   		<action name="solutionupload" class = "action.AssignmentUploadAction" method ="solutionUpload"> 
+		
+			<interceptor-ref name="fileUploadStack"> 
+				<param name="fileUpload.allowedTypes">application/pdf</param> 
+			</interceptor-ref> 
+			<result name="success">/JSP/Student/StudentHomePage.jsp</result>
+			<result name="failure">/JSP/Student/StudentHomePage.jsp</result> 
+		</action>
+   
+   
+   
+   		<action name="notesUploadtemp" class = "action.AssignmentUploadAction" method ="uploadNotestemp"> 
+		
+			<interceptor-ref name="fileUploadStack"> 
+				<param name="fileUpload.allowedTypes">application/pdf</param> 
+			</interceptor-ref> 
+			<result name="success">/JSP/Student/TeacherHomePage.jsp</result> 
+		</action>
+   <action name="studentsubjectselect" class = "action.StudentHomeAction" method= "studentSubjectSelect">
+   <result name ="success">/JSP/Student/StudentHomePage.jsp</result>
+   </action>
+   
+  		<action name="downloadNotes" class="action.AssignmentUploadAction" method="downloadNotes">
+        <result name="success" type="stream">
+  		<param name="contentType">application/pdf</param>
+	 	<param name="inputName">fileInputStream</param>
+	  	<param name="contentDisposition">attachment;filename=${downloadlink}</param>
+	  	<param name="bufferSize">1024</param>
+        </result>
+        </action>
+        <action name="downloadNotesstudent" class="action.AssignmentUploadAction" method="downloadNotesSt">
+        <result name="success" type="stream">
+  		<param name="contentType">application/pdf</param>
+	 	<param name="inputName">fileInputStream</param>
+	  	<param name="contentDisposition">attachment;filename=${downloadlink}</param>
+	  	<param name="bufferSize">1024</param>
+        </result>
+        </action>
+        <action name="downloadAssign" class="action.AssignmentUploadAction" method="downloadAssignSt">
+        <result name="success" type="stream">
+  		<param name="contentType">application/pdf</param>
+	 	<param name="inputName">fileInputStream</param>
+	  	<param name="contentDisposition">attachment;filename=${downloadlink}</param>
+	  	<param name="bufferSize">1024</param>
+        </result>
+        </action>
+</package>
+
+</struts>

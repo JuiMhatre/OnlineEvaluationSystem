@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+
+    <session-factory>
+        <property name="hbm2ddl.auto">update</property>
+        <property name="dialect">org.hibernate.dialect.Oracle10gDialect</property>
+        <property name="connection.url">jdbc:oracle:thin:@localhost:1521:JuiM</property>
+        <property name="connection.username">dbsnmp</property>
+        <property name="connection.password">JuiM</property>
+        <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+		<property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
+		<property name="show_sql">true</property>
+
+    <mapping resource="UserBean.hbm.xml"/>
+    <mapping class ="bean.UserBean"/>
+    <mapping resource="AssignmentBean.hbm.xml"/>
+    <mapping class ="bean.AssignmentBean"/>
+    <mapping resource="SubjectBean.hbm.xml"/>
+    <mapping class ="bean.SubjectBean"/>
+    <mapping resource="SolutionBean.hbm.xml"/>
+    <mapping class ="bean.SolutionBean"/>
+    <mapping class ="bean.StudentAssignmentSolutionBean"/>
+    </session-factory>
+
+</hibernate-configuration>
